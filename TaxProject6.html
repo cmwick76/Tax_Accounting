@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Project: Karane Enterprises | Lewis & Clark Community College</title>
+    <!-- Google Fonts: Raleway -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* L&C Brand Colors */
+            --trailblazer-blue: #0033A0;
+            --white: #FFFFFF;
+            --black: #000000;
+            --sunglow: #FFCB1F;
+            --battleship-gray: #898989;
+            --light-bg: #f4f6f9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--trailblazer-blue);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid var(--sunglow);
+        }
+
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 1.5rem;
+        }
+
+        header .subtitle {
+            font-weight: 300;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            gap: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            flex: 1;
+            min-width: 250px;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .nav-title {
+            color: var(--trailblazer-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-bottom: 2px solid var(--sunglow);
+            padding-bottom: 0.5rem;
+        }
+
+        .module-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .module-btn {
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            background: none;
+            border: 1px solid #eee;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: var(--battleship-gray);
+        }
+
+        .module-btn:hover {
+            background-color: #f0f4ff;
+            color: var(--trailblazer-blue);
+        }
+
+        .module-btn.active {
+            border-left: 4px solid var(--trailblazer-blue);
+            background-color: #e6efff;
+            color: var(--trailblazer-blue);
+            font-weight: 700;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Main Content */
+        main {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        .lesson-card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            display: none; /* Hidden by default, toggled via JS */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .lesson-card.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--trailblazer-blue);
+            margin-top: 0;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--battleship-gray);
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background-color: var(--trailblazer-blue);
+            color: var(--white);
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Professor's Notes / Discovery Blocks */
+        .prof-note {
+            background-color: #e6efff;
+            border-left: 4px solid var(--trailblazer-blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .prof-note strong {
+            color: var(--trailblazer-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Interactive Elements */
+        .interaction-area {
+            border: 2px solid var(--sunglow);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            background-color: #fffdf5;
+        }
+
+        .interaction-title {
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-reveal {
+            background-color: var(--trailblazer-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-reveal:hover {
+            background-color: #002270;
+        }
+
+        .reveal-content {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        .step-badge {
+            display: inline-block;
+            background-color: var(--sunglow);
+            color: var(--black);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--battleship-gray);
+            font-size: 0.8rem;
+            border-top: 1px solid #ddd;
+            margin-top: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utility for Responsive Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <h1>LEWIS & CLARK</h1>
+        <div class="subtitle">COMMUNITY COLLEGE | DISCOVER YOUR POTENTIAL</div>
+    </div>
+    <div style="font-weight: 700; font-size: 1.2rem; color: var(--sunglow);">TAX ACCT</div>
+</header>
+
+<div class="container">
+    <aside>
+        <div class="nav-title">Lesson Plan Modules</div>
+        <ul class="module-list">
+            <li class="module-item"><button class="module-btn active" onclick="showModule('intro')">Start Here: The Mission</button></li>
+            <li class="module-item"><button class="module-btn" onclick="showModule('mod1')">Module 1: The Foundation (2024)</button></li>
+            <li class="module-item"><button class="module-btn" onclick="showModule('mod2')">Module 2: Expansion (2025)</button></li>
+            <li class="module-item"><button class="module-btn" onclick="showModule('mod3')">Module 3: Advanced Strategy</button></li>
+            <li class="module-item"><button class="module-btn" onclick="showModule('mod4')">Module 4: The Acquisition</button></li>
+            <li class="module-item"><button class="module-btn" onclick="showModule('mod5')">Module 5: Compliance (Form 4562)</button></li>
+        </ul>
+    </aside>
+
+    <main>
+        <!-- INTRO MODULE -->
+        <div id="intro" class="lesson-card active">
+            <h2>Welcome, Trailblazers.</h2>
+            <p>Today, we aren't just doing math; we are advising a growing manufacturing business. Accounting is about helping businesses <strong>Discover</strong> their financial health.</p>
+            
+            <div class="prof-note">
+                <strong>Professor's Objective</strong>
+                By the end of this project, you will master the ability to calculate MACRS depreciation, apply Section 179 limitations strategically, navigate Bonus Depreciation rules, and handle complex lump-sum asset acquisitions.
+            </div>
+
+            <h3>The Client: Karane Enterprises</h3>
+            <p>Based in College Station, Texas. They began business in 2024. As they scale up, they are acquiring significant assets. Your job is to maximize their tax efficiency.</p>
+            
+            <p><strong>Key Constraints:</strong></p>
+            <ul>
+                <li>Calendar-year taxpayer.</li>
+                <li>They want to maximize deductions (Section 179).</li>
+                <li>We will ignore Bonus depreciation until Module 3.</li>
+            </ul>
+
+            <button class="btn-reveal" onclick="showModule('mod1')">Begin the Assessment &rarr;</button>
+        </div>
+
+        <!-- MODULE 1 -->
+        <div id="mod1" class="lesson-card">
+            <h2>Module 1: The Foundation (2024 Assets)</h2>
+            <p>In 2024, Karane acquired three key assets. Our goal is to compute the maximum depreciation deduction, utilizing Section 179.</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>Cost</th>
+                            <th>Date Placed in Service</th>
+                            <th>Recovery Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Office Furniture</td>
+                            <td>$250,000</td>
+                            <td>Feb 3 (Q1)</td>
+                            <td>7 Years</td>
+                        </tr>
+                        <tr>
+                            <td>Machinery</td>
+                            <td>$1,660,000</td>
+                            <td>July 22 (Q3)</td>
+                            <td>7 Years</td>
+                        </tr>
+                        <tr>
+                            <td>Used Delivery Truck</td>
+                            <td>$60,000</td>
+                            <td>Aug 17 (Q3)</td>
+                            <td>5 Years</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="prof-note">
+                <strong>Strategy Tip: Section 179 Application</strong>
+                To maximize deductions, apply the Section 179 expense to assets with the <strong>longest recovery periods</strong> or lowest first-year percentage first. Why? Because the remaining basis gets depreciated. You want the "slowest" assets to be expensed immediately!
+            </div>
+
+            <div class="interaction-area">
+                <div class="interaction-title"><span class="step-badge">CHECKPOINT</span> Which asset gets §179 Priority?</div>
+                <p>We have a §1,220,000 limit available (Example calculation). Should we apply it to the Truck (5-year) or the Machinery (7-year)?</p>
+                <button class="btn-reveal" onclick="toggleReveal('ans1')">Reveal Strategy</button>
+                <div id="ans1" class="reveal-content">
+                    <p><strong>Correct Answer: The Machinery.</strong></p>
+                    <p>The Machinery has a 7-year life. The Truck has a 5-year life. By applying §179 to the Machinery first, we write off the asset that would otherwise take longer to depreciate. This accelerates the tax benefit.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 2 -->
+        <div id="mod2" class="lesson-card">
+            <h2>Module 2: Expansion (2025 Assets)</h2>
+            <p>The company grew in 2025. Now we have new assets and new complexities. We must assume the 2024 assets are now in their second year of MACRS.</p>
+
+            <h3>2025 Acquisitions</h3>
+            <ul>
+                <li><strong>Computers ($420k):</strong> 5-year property.</li>
+                <li><strong>Luxury Auto ($85k):</strong> 5-year property (Subject to IRS Tables).</li>
+                <li><strong>Assembly Equipment ($1.2M):</strong> 7-year property.</li>
+                <li><strong>Storage Building ($800k):</strong> 39-year Non-residential Real Property.</li>
+            </ul>
+
+            <div class="prof-note">
+                <strong>Crucial Concept: Mid-Quarter vs. Half-Year</strong>
+                Always check when assets were placed in service. If >40% of tangible personal property is placed in service in Q4, you MUST use the Mid-Quarter convention. 
+                <br><br>
+                <em>Check the dates:</em> Computers (Mar), Auto (May), Equipment (Aug). Nothing in Q4. We use <strong>Half-Year Convention</strong>.
+            </div>
+
+            <div class="interaction-area">
+                <div class="interaction-title"><span class="step-badge">CHALLENGE</span> Luxury Auto Limits</div>
+                <p>The auto cost $85,000. Can we depreciate all of that using regular MACRS percentages?</p>
+                <button class="btn-reveal" onclick="toggleReveal('ans2')">Reveal Answer</button>
+                <div id="ans2" class="reveal-content">
+                    <p><strong>No.</strong> Luxury automobiles are subject to strict annual caps (Listed Property rules). Regardless of the 200% DB calculation, you are capped at the IRS limit table for the specific year placed in service.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 3 -->
+        <div id="mod3" class="lesson-card">
+            <h2>Module 3: Advanced Strategy (Bonus Depreciation)</h2>
+            <p>In Part C, Karane changes their mind. They want to use <strong>Bonus Depreciation</strong>.</p>
+            
+            <p>Bonus Depreciation allows an additional percentage of the asset's cost to be deducted immediately <em>after</em> §179 but <em>before</em> regular MACRS.</p>
+
+            <div class="prof-note">
+                <strong>The Order of Operations</strong>
+                <ol>
+                    <li><strong>Section 179:</strong> Take the specific dollar amount off the top.</li>
+                    <li><strong>Bonus Depreciation:</strong> Apply the % (e.g., 40%, 60%, 80% depending on tax year) to the <em>remaining</em> basis.</li>
+                    <li><strong>Regular MACRS:</strong> Depreciate whatever is left using the standard table rates.</li>
+                </ol>
+            </div>
+
+            <p><em>Note for this project:</em> Pay close attention to the specific Bonus percentages provided in the problem set (e.g., 40% vs 0%). This dramatically alters the "MACRS Basis" column.</p>
+        </div>
+
+        <!-- MODULE 4 -->
+        <div id="mod4" class="lesson-card">
+            <h2>Module 4: The Acquisition</h2>
+            <p>Karane buys a competitor for a lump sum of <strong>$1,469,800</strong>. This is not just one asset; it is a basket of assets.</p>
+
+            <h3>Allocation Strategy</h3>
+            <p>You must allocate the purchase price to the specific assets (Inventory, Furniture, Machinery, Patent, Building, Land). Whatever is left over is <strong>Goodwill</strong>.</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <tr>
+                        <th>Asset Type</th>
+                        <th>Treatment</th>
+                    </tr>
+                    <tr>
+                        <td>Inventory</td>
+                        <td>Cost of Goods Sold (Not depreciated)</td>
+                    </tr>
+                    <tr>
+                        <td>Goodwill & Patents</td>
+                        <td>Section 197 Intangibles. Amortized over 15 years (180 months), straight-line, full-month convention.</td>
+                    </tr>
+                    <tr>
+                        <td>Land</td>
+                        <td>Never depreciated.</td>
+                    </tr>
+                </table>
+            </div>
+
+             <div class="interaction-area">
+                <div class="interaction-title"><span class="step-badge">CALCULATION</span> Amortizing Goodwill</div>
+                <p>If Goodwill is $3,800 and purchased in September, how do we calculate the Year 1 deduction?</p>
+                <button class="btn-reveal" onclick="toggleReveal('ans3')">Show Math</button>
+                <div id="ans3" class="reveal-content">
+                    <p><strong>Formula:</strong> (Cost / 180 months) × Months owned.</p>
+                    <p>Acquired Sept 15. Count September as a full month (Full-month convention for intangibles).</p>
+                    <p>Sept, Oct, Nov, Dec = 4 Months.</p>
+                    <p>Calculation: ($3,800 / 180) × 4 = <strong>$84</strong> (rounded).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 5 -->
+        <div id="mod5" class="lesson-card">
+            <h2>Module 5: Compliance (Form 4562)</h2>
+            <p>The final step is translating our calculations to the IRS Form 4562.</p>
+
+            <h3>Section Breakdown</h3>
+            <ul>
+                <li><strong>Part I:</strong> Section 179 Election. (This is where your $1,200,000 for Assembly Equipment goes).</li>
+                <li><strong>Part II:</strong> Special Depreciation (Bonus).</li>
+                <li><strong>Part III, Section B:</strong> Current year assets (2025) not listed elsewhere.</li>
+                <li><strong>Part IV:</strong> Summary (The Grand Total).</li>
+                <li><strong>Part V:</strong> Listed Property (The Luxury Auto goes here, NOT in Part III).</li>
+            </ul>
+
+            <div class="prof-note" style="border-left-color: var(--sunglow); background-color: #fffdf5;">
+                <strong>Common Pitfall</strong>
+                Do not double count! If you put the Luxury Auto in Part V, do not enter it again in Part III. The total from Part V flows to Part IV, Line 21.
+            </div>
+
+            <p style="margin-top: 2rem; font-style: italic; text-align: center;">You have now discovered the full lifecycle of corporate tax depreciation. Submit your calculations with confidence!</p>
+        </div>
+    </main>
+</div>
+
+<footer>
+    &copy; 2025 Lewis & Clark Community College. All Rights Reserved.<br>
+    <em>Discover Your Future.</em>
+</footer>
+
+<script>
+    function showModule(moduleId) {
+        // Hide all modules
+        const modules = document.querySelectorAll('.lesson-card');
+        modules.forEach(mod => mod.classList.remove('active'));
+
+        // Deactivate all buttons
+        const buttons = document.querySelectorAll('.module-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // Show selected module
+        document.getElementById(moduleId).classList.add('active');
+        
+        // Activate button
+        // Simple loop to find the button that called this function based on click index would be complex, 
+        // so we rely on the onclick event to set state visually if we passed 'this', 
+        // but here we just re-query based on logic or leave as is. 
+        // Better approach for clarity:
+        
+        // Find the button that corresponds to the module
+        // (Simplified for this demo)
+        const mapping = {
+            'intro': 0, 'mod1': 1, 'mod2': 2, 'mod3': 3, 'mod4': 4, 'mod5': 5
+        };
+        if (buttons[mapping[moduleId]]) {
+            buttons[mapping[moduleId]].classList.add('active');
+        }
+    }
+
+    function toggleReveal(id) {
+        const content = document.getElementById(id);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
